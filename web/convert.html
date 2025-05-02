@@ -1,0 +1,2695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stupid World - Converter</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="https://raw.githubusercontent.com/AFRcloud/BG/main/icons8-film-noir-80.png">
+    
+    <!-- Meta tags -->
+    <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/akulelaki696/bg/refs/heads/main/20250106_010158.jpg"/>
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)"/>
+    <meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Common CSS styles shared across all pages */
+:root {
+  /* Color variables */
+  --primary: #6a11cb;
+  --primary-dark: #4f46e5;
+  --primary-light: #a0a0ff;
+  --secondary: #2575fc;
+  --secondary-dark: #1e40af;
+  --accent: #ff6b6b;
+  --dark: #0f0c29;
+  --dark-light: #302b63;
+  --light: #ffffff;
+  --gray: #64748b;
+  --gray-light: #a0a0ff;
+  --gray-dark: #334155;
+  --primary-color: #6a11cb;
+  --secondary-color: #2575fc;
+  --accent-color: #ff6b6b;
+  --dark-bg: #0f0c29;
+  --dark-bg-gradient-1: #302b63;
+  --dark-bg-gradient-2: #24243e;
+  --card-bg: rgba(15, 14, 32, 0.8);
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0ff;
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --success-color: #38ef7d;
+
+  /* Common UI elements */
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-full: 9999px;
+
+  /* Shadows and effects */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --glow-primary: 0 0 10px rgba(106, 17, 203, 0.5), 0 0 20px rgba(106, 17, 203, 0.2);
+  --glow-secondary: 0 0 15px rgba(37, 117, 252, 0.5);
+
+  /* Animations */
+  --transition-normal: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+}
+
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rajdhani", sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--dark-bg), var(--dark-bg-gradient-1), var(--dark-bg-gradient-2));
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(106, 17, 203, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(37, 117, 252, 0.15) 0%, transparent 40%);
+  z-index: -1;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Common components */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  transition: var(--transition-normal);
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Navigation buttons */
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-button {
+  background: rgba(106, 17, 203, 0.1);
+  border: 1px solid rgba(106, 17, 203, 0.2);
+  color: var(--text-secondary);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-button:hover {
+  background: rgba(106, 17, 203, 0.2);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-primary);
+}
+
+.nav-button.active {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  box-shadow: var(--glow-primary);
+}
+
+.nav-highlight {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white !important;
+  box-shadow: 0 3px 10px rgba(106, 17, 203, 0.3);
+}
+
+.nav-highlight:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+}
+
+.nav-highlight::after {
+  display: none;
+}
+
+/* Donation modal */
+.donation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.donation-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.donation-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.donation-content {
+  position: relative;
+  background: linear-gradient(to bottom right, #1e1e3f, #0f0c29);
+  border-radius: var(--border-radius-lg);
+  padding: 1px;
+  max-width: 90%;
+  width: 400px;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.donation-modal.active .donation-content {
+  transform: scale(1);
+}
+
+.donation-border {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+.donation-border-animation {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color), var(--primary-color));
+  animation: rotate 8s linear infinite;
+  opacity: 0.7;
+}
+
+.donation-body {
+  position: relative;
+  background: var(--dark-bg);
+  border-radius: calc(var(--border-radius-lg) - 1px);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close-donation {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-full);
+  transition: var(--transition-normal);
+}
+
+.close-donation:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.donation-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.donation-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.donation-small-text {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.qris-container {
+  position: relative;
+  padding: 3px;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.qris-border {
+  position: absolute;
+  inset: 0;
+}
+
+.qris-border-animation {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color), var(--primary-color));
+  animation: pulse 2s infinite;
+  opacity: 0.7;
+  border-radius: var(--border-radius-md);
+}
+
+.qris-image-container {
+  position: relative;
+  background: white;
+  padding: 10px;
+  border-radius: calc(var(--border-radius-md) - 2px);
+}
+
+.qris-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Animations */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .nav-buttons {
+    gap: 8px;
+  }
+
+  .nav-button {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .nav-highlight {
+    margin-top: 10px;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 480px) {
+  .donation-content {
+    width: 90%;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .nav-buttons {
+    gap: 5px;
+  }
+
+  .nav-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Current year script support */
+#current-year {
+  display: inline;
+}
+
+/* Floating Donation Button */
+.donate-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 5px 20px rgba(106, 17, 203, 0.5);
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.3s ease;
+  animation: pulse-donate 2s infinite;
+}
+
+@keyframes pulse-donate {
+  0% {
+    box-shadow: 0 0 0 0 rgba(106, 17, 203, 0.7);
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(106, 17, 203, 0);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(106, 17, 203, 0);
+    transform: scale(1);
+  }
+}
+
+.donate-btn:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .donate-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-buttons {
+    gap: 5px;
+  }
+
+  .nav-button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}
+/* Converter page specific styles */
+:root {
+  --primary: #6a11cb;
+  --primary-dark: #4f46e5;
+  --primary-light: #a0a0ff;
+  --secondary: #2575fc;
+  --secondary-dark: #1e40af;
+  --accent: #ff6b6b;
+  --dark: #0f0c29;
+  --dark-light: #302b63;
+  --light: #ffffff;
+  --gray: #64748b;
+  --gray-light: #a0a0ff;
+  --gray-dark: #334155;
+}
+
+body {
+  font-family: "Rajdhani", sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: var(--light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+  padding: 1rem 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(106, 17, 203, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(37, 117, 252, 0.15) 0%, transparent 40%);
+  z-index: -1;
+}
+
+.container {
+  width: 100%;
+  max-width: 480px;
+  padding: 0 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: rgba(15, 14, 32, 0.8);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(106, 17, 203, 0.1);
+  width: 100%;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(106, 17, 203, 0.5), rgba(37, 117, 252, 0.5), rgba(255, 107, 107, 0.5));
+  filter: blur(1px);
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.title {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin: 0;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.title::after {
+  content: "CONVERT";
+  position: absolute;
+  top: -8px;
+  right: -30px;
+  font-size: 0.7rem;
+  font-weight: 400;
+  background: var(--accent);
+  color: var(--dark);
+  padding: 2px 5px;
+  border-radius: 3px;
+  -webkit-text-fill-color: var(--dark);
+  transform: rotate(15deg);
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--gray-light);
+  margin-top: 0.3rem;
+}
+
+/* Cyberpunk details */
+.tech-detail {
+  position: absolute;
+  background: var(--primary);
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.tech-detail-1 {
+  width: 40px;
+  height: 40px;
+  top: 20px;
+  right: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--primary);
+}
+
+.tech-detail-2 {
+  width: 80px;
+  height: 2px;
+  bottom: 40px;
+  left: -20px;
+  transform: rotate(45deg);
+}
+
+.tech-detail-3 {
+  width: 15px;
+  height: 15px;
+  bottom: 20px;
+  right: 40px;
+  transform: rotate(45deg);
+}
+
+/* Converter specific styles */
+.converter-container {
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.direction-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.direction-btn {
+  background: rgba(106, 17, 203, 0.1);
+  border: 1px solid rgba(106, 17, 203, 0.2);
+  color: var(--gray-light);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.direction-btn:hover {
+  background: rgba(106, 17, 203, 0.2);
+  color: var(--light);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(106, 17, 203, 0.3);
+}
+
+.direction-btn.active {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  box-shadow: 0 0 10px rgba(106, 17, 203, 0.3);
+}
+
+.converter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.converter-section.hidden {
+  display: none;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+.converter-textarea {
+  width: 100%;
+  min-height: 150px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(106, 17, 203, 0.2);
+  border-radius: 8px;
+  color: var(--light);
+  padding: 0.8rem;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.85rem;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.converter-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.25);
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.converter-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.result-textarea {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(106, 17, 203, 0.3);
+}
+
+.format-selector {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.format-btn {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(106, 17, 203, 0.2);
+  color: var(--gray-light);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.format-btn:hover {
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--light);
+}
+
+.format-btn.active {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+}
+
+.config-type-selector {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.convert-btn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.convert-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.convert-btn:hover::before {
+  left: 100%;
+}
+
+.convert-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copy-btn {
+  background: rgba(106, 17, 203, 0.1);
+  border: 1px solid rgba(106, 17, 203, 0.2);
+  color: var(--gray-light);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.copy-btn:hover {
+  background: rgba(106, 17, 203, 0.2);
+  color: var(--light);
+}
+
+.loading-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 14, 32, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.loading-indicator.hidden {
+  display: none;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(106, 17, 203, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.error-message.hidden {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+  }
+
+  .direction-selector {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .direction-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .converter-textarea {
+    min-height: 120px;
+  }
+}
+
+/* Footer styles */
+.footer {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(15, 14, 32, 0.8);
+  border-radius: 12px;
+  padding: 1.2rem;
+  position: relative;
+  border: 1px solid rgba(106, 17, 203, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  margin: 0 0.75rem;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+}
+
+.footer::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(106, 17, 203, 0.5), rgba(37, 117, 252, 0.5), rgba(255, 107, 107, 0.5));
+  filter: blur(1px);
+}
+
+.footer-logo {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-powered {
+  font-size: 0.8rem;
+  color: var(--gray-light);
+  margin-bottom: 0.6rem;
+  font-family: "Share Tech Mono", monospace;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(106, 17, 203, 0.05);
+  border: 1px solid rgba(106, 17, 203, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.social-link:hover {
+  background: rgba(106, 17, 203, 0.1);
+  box-shadow: var(--glow-primary);
+  transform: translateY(-2px);
+}
+
+.social-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.footer-year {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-top: 0.4rem;
+  letter-spacing: 1px;
+}
+
+.circuit-line {
+  position: absolute;
+  background: var(--primary);
+  opacity: 0.1;
+}
+
+.circuit-line-1 {
+  width: 60px;
+  height: 1px;
+  top: 20px;
+  left: 20px;
+}
+
+.circuit-line-2 {
+  width: 1px;
+  height: 30px;
+  top: 20px;
+  left: 20px;
+}
+
+.circuit-line-3 {
+  width: 40px;
+  height: 1px;
+  bottom: 25px;
+  right: 30px;
+}
+
+.circuit-line-4 {
+  width: 1px;
+  height: 25px;
+  bottom: 25px;
+  right: 30px;
+}
+
+.circuit-dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.2;
+}
+
+.circuit-dot-1 {
+  top: 20px;
+  left: 20px;
+}
+
+.circuit-dot-2 {
+  top: 50px;
+  left: 20px;
+}
+
+.circuit-dot-3 {
+  bottom: 25px;
+  right: 30px;
+}
+
+.circuit-dot-4 {
+  bottom: 50px;
+  right: 30px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="tech-detail tech-detail-1"></div>
+            <div class="tech-detail tech-detail-2"></div>
+            <div class="tech-detail tech-detail-3"></div>
+            
+            <div class="title-container">
+                <h1 class="title">STUPID WORLD</h1>
+                <p class="subtitle">Format Converter Tool</p>
+            </div>
+            
+            <div class="converter-container">
+                <div class="direction-selector">
+                    <button id="v2ray-to-config" class="direction-btn active">
+                        <i class="fas fa-arrow-right"></i> V2Ray to Config
+                    </button>
+                    <button id="config-to-v2ray" class="direction-btn">
+                        <i class="fas fa-arrow-left"></i> Config to V2Ray
+                    </button>
+                </div>
+                
+                <!-- V2Ray to Config Section -->
+                <div id="v2ray-to-config-section" class="converter-section">
+                    <div class="form-group">
+                        <label for="v2ray-input">V2Ray Links (vmess://, vless://, trojan://, ss://)</label>
+                        <textarea id="v2ray-input" class="converter-textarea" placeholder="Paste your V2Ray links here, one per line..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Output Format</label>
+                        <div class="format-selector">
+                            <button id="clash-format" class="format-btn active">Clash</button>
+                            <button id="nekobox-format" class="format-btn">Nekobox</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Configuration Type</label>
+                        <div class="config-type-selector">
+                            <button id="minimal-config" class="format-btn active">Minimal (Proxies Only)</button>
+                            <button id="full-config" class="format-btn">Full Configuration</button>
+                        </div>
+                    </div>
+                    
+                    <button id="convert-v2ray" class="convert-btn">
+                        <i class="fas fa-sync-alt"></i> Convert
+                    </button>
+                    
+                    <div class="form-group">
+                        <div class="result-header">
+                            <label for="config-output">Result</label>
+                            <button id="copy-config" class="copy-btn">
+                                <i class="far fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <textarea id="config-output" class="converter-textarea result-textarea" readonly placeholder="Converted configuration will appear here..."></textarea>
+                    </div>
+                </div>
+                
+                <!-- Config to V2Ray Section -->
+                <div id="config-to-v2ray-section" class="converter-section hidden">
+                    <div class="form-group">
+                        <label for="config-type">Config Type</label>
+                        <div class="format-selector">
+                            <button id="clash-type" class="format-btn active">Clash</button>
+                            <button id="nekobox-type" class="format-btn">Nekobox</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Configuration Type</label>
+                        <div class="config-type-selector">
+                            <button id="minimal-config-reverse" class="format-btn active">Minimal (Proxies Only)</button>
+                            <button id="full-config-reverse" class="format-btn">Full Configuration</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="config-input">Configuration</label>
+                        <textarea id="config-input" class="converter-textarea" placeholder="Paste your Clash or Nekobox configuration here..."></textarea>
+                    </div>
+                    
+                    <button id="convert-config" class="convert-btn">
+                        <i class="fas fa-sync-alt"></i> Convert
+                    </button>
+                    
+                    <div class="form-group">
+                        <div class="result-header">
+                            <label for="v2ray-output">Result</label>
+                            <button id="copy-v2ray" class="copy-btn">
+                                <i class="far fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <textarea id="v2ray-output" class="converter-textarea result-textarea" readonly placeholder="Converted V2Ray links will appear here..."></textarea>
+                    </div>
+                </div>
+                
+                <div id="loading-indicator" class="loading-indicator hidden">
+                    <div class="spinner"></div>
+                    <p>Converting...</p>
+                </div>
+                
+                <div id="error-message" class="error-message hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="circuit-line circuit-line-1"></div>
+        <div class="circuit-line circuit-line-2"></div>
+        <div class="circuit-line circuit-line-3"></div>
+        <div class="circuit-line circuit-line-4"></div>
+        <div class="circuit-dot circuit-dot-1"></div>
+        <div class="circuit-dot circuit-dot-2"></div>
+        <div class="circuit-dot circuit-dot-3"></div>
+        <div class="circuit-dot circuit-dot-4"></div>
+        
+        <div class="footer-logo">STUPID WORLD</div>
+        <div class="footer-social">
+            <a href="https://t.me/notx15" class="social-link" target="_blank">
+                <svg class="social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-8.609 3.33c-2.068.8-4.133 1.598-5.724 2.21a405.15 405.15 0 0 1-2.849 1.09c-.42.147-.99.332-1.473.901-.728.968.193 1.798.919 2.286 1.61.516 3.275 1.009 4.654 1.472.846 1.467 1.618 2.796 2.503 4.532.545 1.062 1.587 2.739 3.19 2.756 1.26.033 2.052-.6 3.542-1.95a142.91 142.91 0 0 1 2.43-2.053c1.686-.142 3.382-.284 5.12-.436.887-.075 1.92-.262 2.405-1.226.436-.877-.015-1.35-.48-1.874l-3.881-4.369-5.481-6.174S22.185 2.128 21.198 2.433z"></path>
+                    <path d="M18.167 7.068c.237 1.632-1.162 6.872-1.766 8.849"></path>
+                </svg>
+            Stupid World
+        </a>
+    </div>    
+    <div class="footer-year">© <span id="current-year"></span></div>
+</footer>
+    <script>
+        /**
+ * JavaScript for the converter page
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // DOM Elements
+  const v2rayToConfigBtn = document.getElementById("v2ray-to-config")
+  const configToV2rayBtn = document.getElementById("config-to-v2ray")
+  const v2rayToConfigSection = document.getElementById("v2ray-to-config-section")
+  const configToV2raySection = document.getElementById("config-to-v2ray-section")
+
+  const clashFormatBtn = document.getElementById("clash-format")
+  const nekoboxFormatBtn = document.getElementById("nekobox-format")
+  const clashTypeBtn = document.getElementById("clash-type")
+  const nekoboxTypeBtn = document.getElementById("nekobox-type")
+
+  const v2rayInput = document.getElementById("v2ray-input")
+  const configInput = document.getElementById("config-input")
+  const configOutput = document.getElementById("config-output")
+  const v2rayOutput = document.getElementById("v2ray-output")
+
+  const convertV2rayBtn = document.getElementById("convert-v2ray")
+  const convertConfigBtn = document.getElementById("convert-config")
+
+  const copyConfigBtn = document.getElementById("copy-config")
+  const copyV2rayBtn = document.getElementById("copy-v2ray")
+
+  const loadingIndicator = document.getElementById("loading-indicator")
+  const errorMessage = document.getElementById("error-message")
+
+  // Direction toggle
+  v2rayToConfigBtn.addEventListener("click", () => {
+    v2rayToConfigBtn.classList.add("active")
+    configToV2rayBtn.classList.remove("active")
+    v2rayToConfigSection.classList.remove("hidden")
+    configToV2raySection.classList.add("hidden")
+    hideError()
+  })
+
+  configToV2rayBtn.addEventListener("click", () => {
+    configToV2rayBtn.classList.add("active")
+    v2rayToConfigBtn.classList.remove("active")
+    configToV2raySection.classList.remove("hidden")
+    v2rayToConfigSection.classList.add("hidden")
+    hideError()
+  })
+
+  // Format toggle for V2Ray to Config
+  clashFormatBtn.addEventListener("click", () => {
+    clashFormatBtn.classList.add("active")
+    nekoboxFormatBtn.classList.remove("active")
+    hideError()
+  })
+
+  nekoboxFormatBtn.addEventListener("click", () => {
+    nekoboxFormatBtn.classList.add("active")
+    clashFormatBtn.classList.remove("active")
+    hideError()
+  })
+
+  // Format toggle for Config to V2Ray
+  clashTypeBtn.addEventListener("click", () => {
+    clashTypeBtn.classList.add("active")
+    nekoboxTypeBtn.classList.remove("active")
+    hideError()
+  })
+
+  nekoboxTypeBtn.addEventListener("click", () => {
+    nekoboxTypeBtn.classList.add("active")
+    clashTypeBtn.classList.remove("active")
+    hideError()
+  })
+
+  // Configuration type toggle for V2Ray to Config
+  const minimalConfigBtn = document.getElementById("minimal-config")
+  const fullConfigBtn = document.getElementById("full-config")
+  const minimalConfigReverseBtn = document.getElementById("minimal-config-reverse")
+  const fullConfigReverseBtn = document.getElementById("full-config-reverse")
+
+  minimalConfigBtn.addEventListener("click", () => {
+    minimalConfigBtn.classList.add("active")
+    fullConfigBtn.classList.remove("active")
+    hideError()
+  })
+
+  fullConfigBtn.addEventListener("click", () => {
+    fullConfigBtn.classList.add("active")
+    minimalConfigBtn.classList.remove("active")
+    hideError()
+  })
+
+  // Configuration type toggle for Config to V2Ray
+  minimalConfigReverseBtn.addEventListener("click", () => {
+    minimalConfigReverseBtn.classList.add("active")
+    fullConfigReverseBtn.classList.remove("active")
+    hideError()
+  })
+
+  fullConfigReverseBtn.addEventListener("click", () => {
+    fullConfigReverseBtn.classList.add("active")
+    minimalConfigReverseBtn.classList.remove("active")
+    hideError()
+  })
+
+  // Convert V2Ray to Config
+  convertV2rayBtn.addEventListener("click", () => {
+    const v2rayLinks = v2rayInput.value.trim()
+    if (!v2rayLinks) {
+      showError("Please enter V2Ray links to convert")
+      return
+    }
+
+    const outputFormat = clashFormatBtn.classList.contains("active") ? "clash" : "nekobox"
+
+    showLoading()
+    setTimeout(() => {
+      try {
+        const result = convertV2rayToConfig(v2rayLinks, outputFormat)
+        configOutput.value = result
+        hideLoading()
+      } catch (error) {
+        hideLoading()
+        showError(error.message || "Failed to convert V2Ray links. Please check your input.")
+      }
+    }, 500)
+  })
+
+  // Convert Config to V2Ray
+  convertConfigBtn.addEventListener("click", () => {
+    const configText = configInput.value.trim()
+    if (!configText) {
+      showError("Please enter configuration to convert")
+      return
+    }
+
+    const configType = clashTypeBtn.classList.contains("active") ? "clash" : "nekobox"
+
+    showLoading()
+    setTimeout(() => {
+      try {
+        const result = convertConfigToV2ray(configText, configType)
+        v2rayOutput.value = result
+        hideLoading()
+      } catch (error) {
+        hideLoading()
+        showError(error.message || "Failed to convert configuration. Please check your input.")
+      }
+    }, 500)
+  })
+
+  // Copy buttons
+  copyConfigBtn.addEventListener("click", () => {
+    copyToClipboard(configOutput.value)
+    copyConfigBtn.innerHTML = '<i class="fas fa-check"></i> Copied!'
+    setTimeout(() => {
+      copyConfigBtn.innerHTML = '<i class="far fa-copy"></i> Copy'
+    }, 2000)
+  })
+
+  copyV2rayBtn.addEventListener("click", () => {
+    copyToClipboard(v2rayOutput.value)
+    copyV2rayBtn.innerHTML = '<i class="fas fa-check"></i> Copied!'
+    setTimeout(() => {
+      copyV2rayBtn.innerHTML = '<i class="far fa-copy"></i> Copy'
+    }, 2000)
+  })
+
+  // Helper functions
+  function showLoading() {
+    loadingIndicator.classList.remove("hidden")
+  }
+
+  function hideLoading() {
+    loadingIndicator.classList.add("hidden")
+  }
+
+  function showError(message) {
+    errorMessage.textContent = message
+    errorMessage.classList.remove("hidden")
+  }
+
+  function hideError() {
+    errorMessage.classList.add("hidden")
+  }
+
+  async function copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch (err) {
+      console.error("Failed to copy: ", err)
+
+      // Fallback method
+      const textarea = document.createElement("textarea")
+      textarea.value = text
+      textarea.style.position = "fixed"
+      textarea.style.opacity = "0"
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand("copy")
+      document.body.removeChild(textarea)
+
+      return true
+    }
+  }
+
+  // Conversion functions
+  function convertV2rayToConfig(v2rayLinks, outputFormat) {
+    // Split input by lines
+    const links = v2rayLinks.split(/\r?\n/).filter((line) => line.trim() !== "")
+
+    if (links.length === 0) {
+      throw new Error("No valid V2Ray links found")
+    }
+
+    // Process each link
+    const parsedLinks = links.map((link) => parseV2rayLink(link))
+
+    // Get configuration type
+    const isFullConfig = fullConfigBtn.classList.contains("active")
+
+    // Generate output based on format
+    if (outputFormat === "clash") {
+      return generateClashConfig(parsedLinks, isFullConfig)
+    } else {
+      return generateNekoboxConfig(parsedLinks, isFullConfig)
+    }
+  }
+
+  function convertConfigToV2ray(configText, configType) {
+    const isFullConfig = fullConfigReverseBtn.classList.contains("active")
+
+    if (configType === "clash") {
+      return parseClashConfig(configText, isFullConfig)
+    } else {
+      return parseNekoboxConfig(configText, isFullConfig)
+    }
+  }
+
+  function parseV2rayLink(link) {
+    try {
+      // Determine protocol
+      if (link.startsWith("vmess://")) {
+        return parseVmessLink(link)
+      } else if (link.startsWith("vless://")) {
+        return parseVlessLink(link)
+      } else if (link.startsWith("trojan://")) {
+        return parseTrojanLink(link)
+      } else if (link.startsWith("ss://")) {
+        return parseShadowsocksLink(link)
+      } else {
+        throw new Error(`Unsupported protocol in link: ${link}`)
+      }
+    } catch (error) {
+      console.error("Error parsing link:", error)
+      throw new Error(`Failed to parse link: ${link}`)
+    }
+  }
+
+  function parseVmessLink(link) {
+    // Remove vmess:// prefix and decode base64
+    const base64Content = link.replace("vmess://", "")
+    let config
+
+    try {
+      const decodedContent = atob(base64Content)
+      config = JSON.parse(decodedContent)
+    } catch (error) {
+      throw new Error("Invalid VMess link format")
+    }
+
+    return {
+      type: "vmess",
+      name: config.ps || "VMess Server",
+      server: config.add,
+      port: Number.parseInt(config.port),
+      uuid: config.id,
+      alterId: Number.parseInt(config.aid || "0"),
+      cipher: config.scy || "auto",
+      tls: config.tls === "tls",
+      network: config.net || "tcp",
+      wsPath: config.path || "",
+      wsHost: config.host || "",
+      sni: config.sni || config.add,
+      skipCertVerify: true,
+    }
+  }
+
+  function parseVlessLink(link) {
+    // Format: vless://uuid@server:port?params#name
+    try {
+      // Remove vless:// prefix
+      const content = link.replace("vless://", "")
+
+      // Split into parts
+      const [userInfo, rest] = content.split("@")
+      const [serverPort, paramsAndName] = rest.split("?")
+      const [server, port] = serverPort.split(":")
+
+      // Parse params and name
+      const params = {}
+      let name = ""
+
+      if (paramsAndName) {
+        const [paramsStr, encodedName] = paramsAndName.split("#")
+        name = encodedName ? decodeURIComponent(encodedName) : "VLESS Server"
+
+        // Parse params
+        paramsStr.split("&").forEach((param) => {
+          const [key, value] = param.split("=")
+          params[key] = value ? decodeURIComponent(value) : ""
+        })
+      }
+
+      return {
+        type: "vless",
+        name: name,
+        server: server,
+        port: Number.parseInt(port),
+        uuid: userInfo,
+        tls: params.security === "tls",
+        network: params.type || "tcp",
+        wsPath: params.path || "",
+        wsHost: params.host || "",
+        sni: params.sni || server,
+        skipCertVerify: true,
+      }
+    } catch (error) {
+      throw new Error("Invalid VLESS link format")
+    }
+  }
+
+  function parseTrojanLink(link) {
+    // Format: trojan://password@server:port?params#name
+    try {
+      // Remove trojan:// prefix
+      const content = link.replace("trojan://", "")
+
+      // Split into parts
+      const [password, rest] = content.split("@")
+      const [serverPort, paramsAndName] = rest.split("?")
+      const [server, port] = serverPort.split(":")
+
+      // Parse params and name
+      const params = {}
+      let name = ""
+
+      if (paramsAndName) {
+        const [paramsStr, encodedName] = paramsAndName.split("#")
+        name = encodedName ? decodeURIComponent(encodedName) : "Trojan Server"
+
+        // Parse params
+        paramsStr.split("&").forEach((param) => {
+          const [key, value] = param.split("=")
+          params[key] = value ? decodeURIComponent(value) : ""
+        })
+      }
+
+      return {
+        type: "trojan",
+        name: name,
+        server: server,
+        port: Number.parseInt(port),
+        password: password,
+        tls: params.security === "tls" || true, // Trojan usually uses TLS
+        network: params.type || "tcp",
+        wsPath: params.path || "",
+        wsHost: params.host || "",
+        sni: params.sni || server,
+        skipCertVerify: true,
+      }
+    } catch (error) {
+      throw new Error("Invalid Trojan link format")
+    }
+  }
+
+  function parseShadowsocksLink(link) {
+    // Format: ss://base64(method:password)@server:port#name
+    try {
+      // Remove ss:// prefix
+      const content = link.replace("ss://", "")
+
+      let userInfo, serverPort, name
+
+      // Check if the link contains @ (SIP002 format)
+      if (content.includes("@")) {
+        const [encodedUserInfo, rest] = content.split("@")
+        const [serverPortStr, encodedName] = rest.split("#")
+
+        // Decode user info (method:password)
+        try {
+          userInfo = atob(encodedUserInfo)
+        } catch (e) {
+          // If decoding fails, it might be URL encoded
+          userInfo = decodeURIComponent(encodedUserInfo)
+        }
+
+        serverPort = serverPortStr
+        name = encodedName ? decodeURIComponent(encodedName) : "SS Server"
+      } else {
+        // Legacy format: base64(method:password@server:port)
+        const [encodedData, encodedName] = content.split("#")
+        const decodedData = atob(encodedData)
+
+        // Split into method:password and server:port
+        const atIndex = decodedData.lastIndexOf("@")
+        userInfo = decodedData.substring(0, atIndex)
+        serverPort = decodedData.substring(atIndex + 1)
+
+        name = encodedName ? decodeURIComponent(encodedName) : "SS Server"
+      }
+
+      // Parse user info
+      const [method, password] = userInfo.split(":")
+
+      // Parse server and port
+      const [server, port] = serverPort.split(":")
+
+      return {
+        type: "ss",
+        name: name,
+        server: server,
+        port: Number.parseInt(port),
+        cipher: method,
+        password: password,
+        udp: true,
+      }
+    } catch (error) {
+      throw new Error("Invalid Shadowsocks link format")
+    }
+  }
+
+  function generateClashConfig(parsedLinks, isFullConfig = false) {
+    let config = `# Clash Configuration
+# STUPID WORLD
+# Date: ${new Date().toISOString()}
+
+`
+
+    if (isFullConfig) {
+      config += `port: 7890
+socks-port: 7891
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+    - https://dns.cloudflare.com/dns-query
+  fallback:
+    - 1.0.0.1
+    - 8.8.4.4
+    - https://dns.google/dns-query
+
+rule-providers:
+
+  ⛔ ADS:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/malikshi/open_clash/refs/heads/main/rule_provider/rule_basicads.yaml"
+    path: "./rule_provider/rule_basicads.yaml"
+    interval: 86400
+
+  🔞 Porn:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/malikshi/open_clash/refs/heads/main/rule_provider/rule_porn.yaml"
+    path: "./rule_provider/rule_porn.yaml"
+    interval: 86400
+
+`
+    }
+
+    config += `proxies:
+`
+
+    parsedLinks.forEach((link, index) => {
+      config += "\n"
+
+      if (link.type === "vmess") {
+        config += `  - name: "${link.name}"
+    type: vmess
+    server: ${link.server}
+    port: ${link.port}
+    uuid: ${link.uuid}
+    alterId: ${link.alterId}
+    cipher: ${link.cipher}
+    udp: true
+    tls: ${link.tls}
+    skip-cert-verify: ${link.skipCertVerify}
+`
+
+        if (link.network === "ws") {
+          config += `    network: ws
+    ws-opts:
+      path: ${link.wsPath}
+`
+          if (link.wsHost) {
+            config += `      headers:
+        Host: ${link.wsHost}
+`
+          }
+        }
+
+        if (link.tls && link.sni) {
+          config += `    servername: ${link.sni}
+`
+        }
+      } else if (link.type === "vless") {
+        config += `  - name: "${link.name}"
+    type: vless
+    server: ${link.server}
+    port: ${link.port}
+    uuid: ${link.uuid}
+    udp: true
+    tls: ${link.tls}
+    skip-cert-verify: ${link.skipCertVerify}
+`
+
+        if (link.network === "ws") {
+          config += `    network: ws
+    ws-opts:
+      path: ${link.wsPath}
+`
+          if (link.wsHost) {
+            config += `      headers:
+        Host: ${link.wsHost}
+`
+          }
+        }
+
+        if (link.tls && link.sni) {
+          config += `    servername: ${link.sni}
+`
+        }
+      } else if (link.type === "trojan") {
+        config += `  - name: "${link.name}"
+    type: trojan
+    server: ${link.server}
+    port: ${link.port}
+    password: ${link.password}
+    udp: true
+    skip-cert-verify: ${link.skipCertVerify}
+`
+
+        if (link.network === "ws") {
+          config += `    network: ws
+    ws-opts:
+      path: ${link.wsPath}
+`
+          if (link.wsHost) {
+            config += `      headers:
+        Host: ${link.wsHost}
+`
+          }
+        }
+
+        if (link.sni) {
+          config += `    sni: ${link.sni}
+`
+        }
+      } else if (link.type === "ss") {
+        config += `  - name: "${link.name}"
+    type: ss
+    server: ${link.server}
+    port: ${link.port}
+    cipher: ${link.cipher}
+    password: ${link.password}
+    udp: true
+`
+      }
+    })
+
+    if (isFullConfig) {
+      config += `
+proxy-groups:
+  - name: "INTERNET"
+    type: select
+    proxies:
+      - BALANCED
+      - SELECTOR
+      - BEST-PING
+      - DIRECT
+      - REJECT
+
+  - name: "SELECTOR"
+    type: select
+    proxies:
+      - DIRECT
+      - REJECT
+`
+      // Add all proxy names to the selector group
+      parsedLinks.forEach((link) => {
+        config += `      - ${link.name}\n`
+      })
+
+      config += `
+  - name: "BEST-PING"
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+`
+      // Add all proxy names to the url-test group
+      parsedLinks.forEach((link) => {
+        config += `      - ${link.name}\n`
+      })
+
+config += `
+  - name: "BALANCED"
+    type: load-balance
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+`
+      // Add all proxy names to the load-balance group
+      parsedLinks.forEach((link) => {
+        config += `      - ${link.name}\n`
+      })
+      config += `
+
+  - name: "PORN"
+    type: select
+    proxies:
+      - REJECT
+      - SELECTOR
+
+  - name: "ADS"
+    type: select
+    proxies:
+      - REJECT
+      - SELECTOR
+`
+
+      config += `
+
+rules:
+  - RULE-SET,⛔ ADS,ADS
+  - RULE-SET,🔞 Porn,PORN
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - MATCH,INTERNET
+`
+    }
+
+    return config
+  }
+
+  function generateNekoboxConfig(parsedLinks, isFullConfig = false) {
+    let config = ""
+
+    if (isFullConfig) {
+      config = `{
+  "dns": {
+    "final": "dns-final",
+    "independent_cache": true,
+    "rules": [
+      {
+        "disable_cache": false,
+        "domain": [
+          "family.cloudflare-dns.com"
+        ],
+        "server": "direct-dns"
+      }
+    ],
+    "servers": [
+      {
+        "address": "https://family.cloudflare-dns.com/dns-query",
+        "address_resolver": "direct-dns",
+        "strategy": "ipv4_only",
+        "tag": "remote-dns"
+      },
+      {
+        "address": "local",
+        "strategy": "ipv4_only",
+        "tag": "direct-dns"
+      },
+      {
+        "address": "local",
+        "address_resolver": "dns-local",
+        "strategy": "ipv4_only",
+        "tag": "dns-final"
+      },
+      {
+        "address": "local",
+        "tag": "dns-local"
+      },
+      {
+        "address": "rcode://success",
+        "tag": "dns-block"
+      }
+    ]
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "../cache/clash.db",
+      "store_fakeip": true
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "../files/yacd"
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "listen_port": 6450,
+      "override_address": "8.8.8.8",
+      "override_port": 53,
+      "tag": "dns-in",
+      "type": "direct"
+    },
+    {
+      "domain_strategy": "",
+      "endpoint_independent_nat": true,
+      "inet4_address": [
+        "172.19.0.1/28"
+      ],
+      "mtu": 9000,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "stack": "system",
+      "tag": "tun-in",
+      "type": "tun"
+    },
+    {
+      "domain_strategy": "",
+      "listen": "0.0.0.0",
+      "listen_port": 2080,
+      "sniff": true,
+      "sniff_override_destination": true,
+      "tag": "mixed-in",
+      "type": "mixed"
+    }
+  ],
+  "log": {
+    "level": "info"
+  },
+  "outbounds": [
+    {
+      "outbounds": [
+        "Best Latency",
+`
+      // Add proxy tags
+      const proxyTags = parsedLinks.map((proxy) => `        "${proxy.name}",`).join("\n")
+      config += proxyTags + "\n"
+      config += `        "direct"
+      ],
+      "tag": "Internet",
+      "type": "selector"
+    },
+    {
+      "interval": "1m0s",
+      "outbounds": [
+`
+      // Add proxy tags again for Best Latency
+      config += proxyTags + "\n"
+      config += `        "direct"
+      ],
+      "tag": "Best Latency",
+      "type": "urltest",
+      "url": "https://detectportal.firefox.com/success.txt"
+    },
+`
+    } else {
+      config = `{
+  "outbounds": [
+`
+    }
+
+    // Add all proxy configurations
+    const proxyConfigs = parsedLinks
+      .map((proxy, index) => {
+        let proxyConfig = ""
+
+        if (proxy.type === "vmess") {
+          proxyConfig = `    {
+      "alter_id": ${proxy.alterId || 0},
+      "packet_encoding": "",
+      "security": "${proxy.cipher || "auto"}",
+      "server": "${proxy.server}",
+      "server_port": ${proxy.port},${
+        proxy.tls
+          ? `
+      "tls": {
+        "enabled": true,
+        "insecure": ${proxy.skipCertVerify ? "true" : "false"},
+        "server_name": "${proxy.sni || ""}",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "randomized"
+        }
+      },`
+          : ""
+      }
+      "transport": {
+        "headers": {
+          "Host": "${proxy.wsHost || ""}"
+        },
+        "path": "${proxy.wsPath || ""}",
+        "type": "ws"
+      },
+      "uuid": "${proxy.uuid}",
+      "type": "vmess",
+      "domain_strategy": "prefer_ipv4",
+      "tag": "${proxy.name}"
+    }`
+        } else if (proxy.type === "vless") {
+          proxyConfig = `    {
+      "domain_strategy": "ipv4_only",
+      "flow": "",
+      "multiplex": {
+        "enabled": false,
+        "max_streams": 32,
+        "protocol": "smux"
+      },
+      "packet_encoding": "xudp",
+      "server": "${proxy.server}",
+      "server_port": ${proxy.port},
+      "tag": "${proxy.name}",${
+        proxy.tls
+          ? `
+      "tls": {
+        "enabled": true,
+        "insecure": ${proxy.skipCertVerify ? "true" : "false"},
+        "server_name": "${proxy.sni || ""}",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "randomized"
+        }
+      },`
+          : ""
+      }
+      "transport": {
+        "early_data_header_name": "Sec-WebSocket-Protocol",
+        "headers": {
+          "Host": "${proxy.wsHost || ""}"
+        },
+        "max_early_data": 0,
+        "path": "${proxy.wsPath || ""}",
+        "type": "ws"
+      },
+      "type": "vless",
+      "uuid": "${proxy.uuid}"
+    }`
+        } else if (proxy.type === "trojan") {
+          proxyConfig = `    {
+      "domain_strategy": "ipv4_only",
+      "multiplex": {
+        "enabled": false,
+        "max_streams": 32,
+        "protocol": "smux"
+      },
+      "password": "${proxy.password}",
+      "server": "${proxy.server}",
+      "server_port": ${proxy.port},
+      "tag": "${proxy.name}",${
+        proxy.tls
+          ? `
+      "tls": {
+        "enabled": true,
+        "insecure": ${proxy.skipCertVerify ? "true" : "false"},
+        "server_name": "${proxy.sni || ""}",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "randomized"
+        }
+      },`
+          : ""
+      }
+      "transport": {
+        "early_data_header_name": "Sec-WebSocket-Protocol",
+        "headers": {
+          "Host": "${proxy.wsHost || ""}"
+        },
+        "max_early_data": 0,
+        "path": "${proxy.wsPath || ""}",
+        "type": "ws"
+      },
+      "type": "trojan"
+    }`
+        } else if (proxy.type === "ss") {
+          proxyConfig = `    {
+      "type": "shadowsocks",
+      "tag": "${proxy.name}",
+      "server": "${proxy.server}",
+      "server_port": ${proxy.port},
+      "method": "${proxy.cipher || "none"}",
+      "password": "${proxy.password}",
+      "plugin": "v2ray-plugin",
+      "plugin_opts": "mux=0;path=${proxy.wsPath || ""};host=${proxy.wsHost || ""};tls=${proxy.tls ? "1" : "0"}"
+    }`
+        }
+
+        return proxyConfig
+      })
+      .join(",\n")
+
+    config += proxyConfigs
+
+    // Add the remaining outbounds
+    if (isFullConfig) {
+      config += `,
+    {
+      "tag": "direct",
+      "type": "direct"
+    },
+    {
+      "tag": "bypass",
+      "type": "direct"
+    },
+    {
+      "tag": "block",
+      "type": "block"
+    },
+    {
+      "tag": "dns-out",
+      "type": "dns"
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "rules": [
+      {
+        "outbound": "dns-out",
+        "port": [
+          53
+        ]
+      },
+      {
+        "inbound": [
+          "dns-in"
+        ],
+        "outbound": "dns-out"
+      },
+      {
+        "network": [
+          "udp"
+        ],
+        "outbound": "block",
+        "port": [
+          443
+        ],
+        "port_range": []
+      },
+      {
+        "ip_cidr": [
+          "224.0.0.0/3",
+          "ff00::/8"
+        ],
+        "outbound": "block",
+        "source_ip_cidr": [
+          "224.0.0.0/3",
+          "ff00::/8"
+        ]
+      }
+    ]
+  }
+}`
+    } else {
+      config += `
+  ]
+}`
+    }
+
+    return config
+  }
+
+  function parseClashConfig(configText, isFullConfig) {
+    try {
+      // Simple YAML parsing for Clash config
+      const lines = configText.split(/\r?\n/)
+      let inProxies = false
+      let currentProxy = null
+      const proxies = []
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim()
+
+        if (line === "proxies:") {
+          inProxies = true
+          continue
+        }
+
+        if (!inProxies) continue
+
+        // Check if we're starting a new proxy
+        if (line.startsWith("- name:")) {
+          // Save previous proxy if exists
+          if (currentProxy) {
+            proxies.push(currentProxy)
+          }
+
+          // Start new proxy
+          currentProxy = {
+            name: line.replace("- name:", "").trim().replace(/"/g, ""),
+            type: "",
+            server: "",
+            port: 0,
+          }
+        } else if (currentProxy && line.startsWith("type:")) {
+          currentProxy.type = line.replace("type:", "").trim()
+        } else if (currentProxy && line.startsWith("server:")) {
+          currentProxy.server = line.replace("server:", "").trim()
+        } else if (currentProxy && line.startsWith("port:")) {
+          currentProxy.port = Number.parseInt(line.replace("port:", "").trim())
+        } else if (currentProxy && line.startsWith("uuid:")) {
+          currentProxy.uuid = line.replace("uuid:", "").trim()
+        } else if (currentProxy && line.startsWith("password:")) {
+          currentProxy.password = line.replace("password:", "").trim()
+        } else if (currentProxy && line.startsWith("cipher:")) {
+          currentProxy.cipher = line.replace("cipher:", "").trim()
+        } else if (currentProxy && line.startsWith("alterId:")) {
+          currentProxy.alterId = Number.parseInt(line.replace("alterId:", "").trim())
+        } else if (currentProxy && line.startsWith("tls:")) {
+          currentProxy.tls = line.replace("tls:", "").trim() === "true"
+        } else if (currentProxy && line.startsWith("network:")) {
+          currentProxy.network = line.replace("network:", "").trim()
+        } else if (currentProxy && line.startsWith("servername:")) {
+          currentProxy.sni = line.replace("servername:", "").trim()
+        } else if (currentProxy && line.startsWith("sni:")) {
+          currentProxy.sni = line.replace("sni:", "").trim()
+        } else if (currentProxy && line.startsWith("ws-opts:")) {
+          // Next lines will contain ws options
+          if (i + 1 < lines.length && lines[i + 1].includes("path:")) {
+            currentProxy.wsPath = lines[i + 1].replace("path:", "").trim()
+          }
+          if (
+            i + 2 < lines.length &&
+            lines[i + 2].includes("headers:") &&
+            i + 3 < lines.length &&
+            lines[i + 3].includes("Host:")
+          ) {
+            currentProxy.wsHost = lines[i + 3].replace("Host:", "").trim()
+          }
+        }
+
+        // Check if we're leaving the proxies section
+        if (line.startsWith("proxy-groups:") || line.startsWith("rules:")) {
+          inProxies = false
+          // Save the last proxy
+          if (currentProxy) {
+            proxies.push(currentProxy)
+            currentProxy = null
+          }
+        }
+      }
+
+      // Save the last proxy if we reached the end of the file
+      if (inProxies && currentProxy) {
+        proxies.push(currentProxy)
+      }
+
+      // Convert proxies to V2Ray links
+      return proxiesToV2rayLinks(proxies)
+    } catch (error) {
+      throw new Error("Failed to parse Clash configuration: " + error.message)
+    }
+  }
+
+  function parseNekoboxConfig(configText, isFullConfig) {
+    try {
+      const lines = configText.split(/\r?\n/)
+      let currentProxy = null
+      const proxies = []
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim()
+
+        if (line === "[Proxy]") {
+          // Save previous proxy if exists
+          if (currentProxy) {
+            proxies.push(currentProxy)
+          }
+
+          // Start new proxy
+          currentProxy = {
+            name: "",
+            type: "",
+            server: "",
+            port: 0,
+          }
+        } else if (currentProxy && line.startsWith("Tag =")) {
+          currentProxy.name = line.replace("Tag =", "").trim()
+        } else if (currentProxy && line.startsWith("Type =")) {
+          currentProxy.type = line.replace("Type =", "").trim().toLowerCase()
+        } else if (currentProxy && line.startsWith("Server =")) {
+          currentProxy.server = line.replace("Server =", "").trim()
+        } else if (currentProxy && line.startsWith("Port =")) {
+          currentProxy.port = Number.parseInt(line.replace("Port =", "").trim())
+        } else if (currentProxy && line.startsWith("UUID =")) {
+          currentProxy.uuid = line.replace("UUID =", "").trim()
+        } else if (currentProxy && line.startsWith("Password =")) {
+          currentProxy.password = line.replace("Password =", "").trim()
+        } else if (currentProxy && line.startsWith("Method =")) {
+          currentProxy.cipher = line.replace("Method =", "").trim()
+        } else if (currentProxy && line.startsWith("AlterID =")) {
+          currentProxy.alterId = Number.parseInt(line.replace("AlterID =", "").trim())
+        } else if (currentProxy && line.startsWith("Security =")) {
+          currentProxy.cipher = line.replace("Security =", "").trim()
+        } else if (currentProxy && line.startsWith("TLS =")) {
+          currentProxy.tls = line.replace("TLS =", "").trim() === "true"
+        } else if (currentProxy && line.startsWith("Transport =")) {
+          currentProxy.network = line.replace("Transport =", "").trim()
+        } else if (currentProxy && line.startsWith("SNI =")) {
+          currentProxy.sni = line.replace("SNI =", "").trim()
+        } else if (currentProxy && line.startsWith("Path =")) {
+          currentProxy.wsPath = line.replace("Path =", "").trim()
+        } else if (currentProxy && line.startsWith("Host =")) {
+          currentProxy.wsHost = line.replace("Host =", "").trim()
+        } else if (currentProxy && line.startsWith("Description =")) {
+          // Override name with description if available
+          currentProxy.name = line.replace("Description =", "").trim()
+        }
+
+        // Empty line indicates end of proxy section
+        if (line === "" && currentProxy && currentProxy.type) {
+          proxies.push(currentProxy)
+          currentProxy = null
+        }
+      }
+
+      // Save the last proxy if we reached the end of the file
+      if (currentProxy && currentProxy.type) {
+        proxies.push(currentProxy)
+      }
+
+      // Convert proxies to V2Ray links
+      return proxiesToV2rayLinks(proxies)
+    } catch (error) {
+      throw new Error("Failed to parse Nekobox configuration: " + error.message)
+    }
+  }
+
+  function proxiesToV2rayLinks(proxies) {
+    if (!proxies || proxies.length === 0) {
+      throw new Error("No valid proxies found in the configuration")
+    }
+
+    return proxies
+      .map((proxy) => {
+        if (proxy.type === "vmess") {
+          return generateVmessLink(proxy)
+        } else if (proxy.type === "vless") {
+          return generateVlessLink(proxy)
+        } else if (proxy.type === "trojan") {
+          return generateTrojanLink(proxy)
+        } else if (proxy.type === "ss" || proxy.type === "shadowsocks") {
+          return generateShadowsocksLink(proxy)
+        } else {
+          return `# Unsupported proxy type: ${proxy.type}`
+        }
+      })
+      .join("\n")
+  }
+
+  function generateVmessLink(proxy) {
+    const vmessObj = {
+      v: "2",
+      ps: proxy.name,
+      add: proxy.server,
+      port: proxy.port,
+      id: proxy.uuid,
+      aid: proxy.alterId || 0,
+      net: proxy.network || "tcp",
+      type: "none",
+      host: proxy.wsHost || "",
+      path: proxy.wsPath || "",
+      tls: proxy.tls ? "tls" : "",
+      sni: proxy.sni || "",
+      scy: proxy.cipher || "auto",
+    }
+
+    const base64 = btoa(JSON.stringify(vmessObj))
+    return `vmess://${base64}`
+  }
+
+  function generateVlessLink(proxy) {
+    let link = `vless://${proxy.uuid}@${proxy.server}:${proxy.port}?`
+
+    const params = []
+    params.push(`encryption=none`)
+    params.push(`security=${proxy.tls ? "tls" : "none"}`)
+    params.push(`type=${proxy.network || "tcp"}`)
+
+    if (proxy.network === "ws") {
+      if (proxy.wsPath) params.push(`path=${encodeURIComponent(proxy.wsPath)}`)
+      if (proxy.wsHost) params.push(`host=${encodeURIComponent(proxy.wsHost)}`)
+    }
+
+    if (proxy.tls && proxy.sni) {
+      params.push(`sni=${encodeURIComponent(proxy.sni)}`)
+    }
+
+    link += params.join("&")
+    link += `#${encodeURIComponent(proxy.name)}`
+
+    return link
+  }
+
+  function generateTrojanLink(proxy) {
+    let link = `trojan://${proxy.password}@${proxy.server}:${proxy.port}?`
+
+    const params = []
+    params.push(`security=${proxy.tls ? "tls" : "none"}`)
+
+    if (proxy.network === "ws") {
+      params.push(`type=ws`)
+      if (proxy.wsPath) params.push(`path=${encodeURIComponent(proxy.wsPath)}`)
+      if (proxy.wsHost) params.push(`host=${encodeURIComponent(proxy.wsHost)}`)
+    }
+
+    if (proxy.sni) {
+      params.push(`sni=${encodeURIComponent(proxy.sni)}`)
+    }
+
+    link += params.join("&")
+    link += `#${encodeURIComponent(proxy.name)}`
+
+    return link
+  }
+
+  function generateShadowsocksLink(proxy) {
+    // Format: ss://base64(method:password)@server:port#name
+    const userInfo = `${proxy.cipher}:${proxy.password}`
+    const base64UserInfo = btoa(userInfo)
+
+    return `ss://${base64UserInfo}@${proxy.server}:${proxy.port}#${encodeURIComponent(proxy.name)}`
+  }
+})
+
+/**
+ * Common JavaScript functions shared across all pages
+ */
+
+// Set current year in footer
+document.addEventListener("DOMContentLoaded", () => {
+  const currentYearElements = document.querySelectorAll("#current-year")
+  const currentYear = new Date().getFullYear()
+
+  currentYearElements.forEach((element) => {
+    element.textContent = currentYear
+  })
+})
+
+// Donation modal functionality
+document.addEventListener("DOMContentLoaded", () => {
+  const donationButton = document.getElementById("donation-button")
+  const donationModal = document.getElementById("donation-modal")
+  const closeButton = document.getElementById("close-donation")
+  const donationBackdrop = document.getElementById("donation-backdrop")
+
+  if (donationButton && donationModal) {
+    // Open donation modal
+    donationButton.addEventListener("click", () => {
+      donationModal.classList.add("active")
+    })
+
+    // Close donation modal
+    if (closeButton) {
+      closeButton.addEventListener("click", () => {
+        donationModal.classList.remove("active")
+      })
+    }
+
+    // Close modal when clicking on backdrop
+    if (donationBackdrop) {
+      donationBackdrop.addEventListener("click", () => {
+        donationModal.classList.remove("active")
+      })
+    }
+
+    // Close modal with Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && donationModal.classList.contains("active")) {
+        donationModal.classList.remove("active")
+      }
+    })
+  }
+})
+
+/**
+ * Generate a UUID v4
+ * @returns {string} A random UUID v4
+ */
+function generateUUIDv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0
+    const v = c === "x" ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+/**
+ * Safe base64 encoding function
+ * @param {string|object} str - String or object to encode
+ * @returns {string} Base64 encoded string
+ */
+function safeBase64Encode(str) {
+  try {
+    // Make sure we're working with a string
+    const stringToEncode = typeof str === "object" ? JSON.stringify(str) : String(str)
+    return window.btoa(stringToEncode)
+  } catch (e) {
+    console.error("Base64 encoding error:", e)
+    return ""
+  }
+}
+
+/**
+ * Format a date to a readable string
+ * @param {Date} date - Date object
+ * @returns {string} Formatted date string
+ */
+function formatDate(date) {
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }
+  return date.toLocaleDateString("en-US", options)
+}
+
+/**
+ * Copy text to clipboard
+ * @param {string} text - Text to copy
+ * @returns {Promise<boolean>} Success status
+ */
+async function copyToClipboard(text) {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text)
+      return true
+    } else {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea")
+      textArea.value = text
+      textArea.style.position = "fixed"
+      textArea.style.left = "-999999px"
+      textArea.style.top = "-999999px"
+      document.body.appendChild(textArea)
+      textArea.focus()
+      textArea.select()
+      const success = document.execCommand("copy")
+      document.body.removeChild(textArea)
+      return success
+    }
+  } catch (err) {
+    console.error("Failed to copy text: ", err)
+    return false
+  }
+}
+
+/**
+ * Show a toast notification
+ * @param {string} message - Message to display
+ * @param {string} type - Type of toast (success, error, info)
+ * @param {number} duration - Duration in milliseconds
+ */
+function showToast(message, type = "info", duration = 3000) {
+  // Check if toast container exists, create if not
+  let toastContainer = document.getElementById("toast-container")
+
+  if (!toastContainer) {
+    toastContainer = document.createElement("div")
+    toastContainer.id = "toast-container"
+    toastContainer.style.position = "fixed"
+    toastContainer.style.bottom = "20px"
+    toastContainer.style.right = "20px"
+    toastContainer.style.zIndex = "9999"
+    document.body.appendChild(toastContainer)
+  }
+
+  // Create toast element
+  const toast = document.createElement("div")
+  toast.className = `toast toast-${type}`
+  toast.style.minWidth = "250px"
+  toast.style.margin = "10px 0"
+  toast.style.padding = "15px"
+  toast.style.borderRadius = "8px"
+  toast.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)"
+  toast.style.display = "flex"
+  toast.style.alignItems = "center"
+  toast.style.justifyContent = "space-between"
+  toast.style.animation = "fadeIn 0.3s, fadeOut 0.3s " + (duration / 1000 - 0.3) + "s forwards"
+
+  // Set background color based on type
+  switch (type) {
+    case "success":
+      toast.style.backgroundColor = "rgba(16, 185, 129, 0.9)"
+      break
+    case "error":
+      toast.style.backgroundColor = "rgba(239, 68, 68, 0.9)"
+      break
+    default:
+      toast.style.backgroundColor = "rgba(99, 102, 241, 0.9)"
+  }
+
+  // Add icon based on type
+  let icon = ""
+  switch (type) {
+    case "success":
+      icon = '<i class="fas fa-check-circle"></i>'
+      break
+    case "error":
+      icon = '<i class="fas fa-exclamation-circle"></i>'
+      break
+    default:
+      icon = '<i class="fas fa-info-circle"></i>'
+  }
+
+  // Set toast content
+  toast.innerHTML = `
+        <div style="display: flex; align-items: center;">
+            <span style="margin-right: 10px; font-size: 18px;">${icon}</span>
+            <span style="color: white;">${message}</span>
+        </div>
+        <button style="background: none; border: none; color: white; cursor: pointer; font-size: 16px;">
+            <i class="fas fa-times"></i>
+        </button>
+    `
+
+  // Add close button functionality
+  const closeButton = toast.querySelector("button")
+  closeButton.addEventListener("click", () => {
+    toastContainer.removeChild(toast)
+  })
+
+  // Add toast to container
+  toastContainer.appendChild(toast)
+
+  // Add CSS for animations if not already added
+  if (!document.getElementById("toast-styles")) {
+    const style = document.createElement("style")
+    style.id = "toast-styles"
+    style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateY(0); }
+                to { opacity: 0; transform: translateY(-20px); }
+            }
+        `
+    document.head.appendChild(style)
+  }
+
+  // Remove toast after duration
+  setTimeout(() => {
+    if (toastContainer.contains(toast)) {
+      toastContainer.removeChild(toast)
+    }
+  }, duration)
+}
+
+/**
+ * Generate UUID for form fields
+ * @param {string} elementId - ID of the element to update
+ */
+function generateUUID(elementId) {
+  document.getElementById(elementId).value = generateUUIDv4()
+}
+
+/**
+ * Generate password (same as UUID for consistency)
+ * @param {string} elementId - ID of the element to update
+ */
+function generatePassword(elementId) {
+  document.getElementById(elementId).value = generateUUIDv4()
+}
+
+</script>
+</body>
+</html>
