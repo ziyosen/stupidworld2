@@ -26,6 +26,7 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
     let sub_page_url = env.var("SUB_PAGE_URL").map(|x|x.to_string()).unwrap();
     let link_page_url = env.var("LINK_PAGE_URL").map(|x|x.to_string()).unwrap();
     let sitemap_url = env.var("SITEMAP_URL").map(|x|x.to_string()).unwrap();
+    let convert_page_url = env.var("SITEMAP_PAGE_URL").map(|x|x.to_string()).unwrap();
     let config = Config { 
         uuid, 
         host: host.clone(), 
@@ -34,7 +35,8 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
         main_page_url, 
         sub_page_url,
         link_page_url,
-        sitemap_url
+        sitemap_url,
+        convert_page_url
     };
 
     Router::with_data(config)
@@ -42,6 +44,7 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
         .on_async("/sub", sub)
         .on_async("/link", link)
         .on_async("/sitemap.xml", sitemap)
+        .on_async("/convert", convert)
         .on_async("/:proxyip", tunnel)
         .on_async("/Stupid-World/:proxyip", tunnel)
         .run(req, env)
@@ -64,6 +67,10 @@ async fn sub(_: Request, cx: RouteContext<Config>) -> Result<Response> {
 
 async fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
     get_response_from_url(cx.data.link_page_url).await
+}
+
+async fn convert(_: Request, cx: RouteContext<Config>) -> Result<Response> {
+    get_response_from_url(cx.data.convert_page_url).await
 }
 
 async fn sitemap(_: Request, cx: RouteContext<Config>) -> Result<Response> {
