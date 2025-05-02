@@ -1,22 +1,30 @@
-name: cf workers
+name: Deploy to Cloudflare Workers
 
 on:
-  workflow_dispatch:
-
   push:
     branches:
       - master
     paths-ignore:
       - 'README.md'
       - 'LICENSE.md'
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: cf
+
     steps:
-      - uses: actions/checkout@v4
-      - name: deploy
+      # Checkout repo (akses wrangler.toml, dll)
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # Optional: log file for debugging
+      - name: Show wrangler.toml contents
+        run: cat wrangler.toml
+
+      # Deploy ke Cloudflare Workers
+      - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
