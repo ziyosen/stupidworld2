@@ -10,5 +10,6 @@ pub struct Config {
     pub sub_page_url: String,
     pub link_page_url: String,
     pub sitemap_url: String,
+    pub convert_page_url: String,
     
 }
