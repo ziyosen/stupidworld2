@@ -1,4 +1,4 @@
-name = "siren"
+name = "siren2"
 main = "build/worker/shim.mjs"
 compatibility_date = "2024-05-23"
 minify = true
@@ -25,11 +25,11 @@ routes = [
 
 [[kv_namespaces]]
 binding = "SIREN2"
-id = "387eff0217a64551a18d0703bd7c3fe2"
+id = "bf3ce7562e9a4b79a1bced6969207860"
 
 [[kv_namespaces]]
 binding = "SITEMAP2"
-id = "344cc4d70c20479fbe319f77d5b876e7"
+id = "c39fd2e6305a4965a366fe73e4486e87"
 
 [build]
 command = "cargo install -q worker-build && worker-build --release"
