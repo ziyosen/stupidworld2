@@ -22,7 +22,6 @@ routes = [
   { pattern = "www.uii.ac.id.www.stupidworld.web.id", custom_domain = true },
   { pattern = "untar.ac.id.www.stupidworld.web.id", custom_domain = true },
   { pattern = "graph.instagram.com.www.stupidworld.web.id", custom_domain = true },
-
 ]
 
 [[kv_namespaces]]
