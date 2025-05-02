@@ -1,3 +1,2 @@
-# STUPID WORLD
-stupid world tunnel
+# STUPID WORLD TUNNEL
 © FoolVPN-ID/Siren | © amiremohamadi/tunl
