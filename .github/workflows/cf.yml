@@ -22,9 +22,14 @@ jobs:
       - name: Show wrangler.toml contents
         run: cat wrangler.toml
 
+      # Menambahkan langkah menggunakan GITHUB_TOKEN untuk akses API GitHub
+      - name: Get repository info using GitHub API
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               https://api.github.com/repos/${{ github.repository }}
+      
       # Deploy ke Cloudflare Workers
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
