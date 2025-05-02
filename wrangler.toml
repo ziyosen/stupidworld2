@@ -78,3 +78,4 @@ MAIN_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/he
 SUB_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/maib/web/sub.html"
 LINK_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/link.html"
 SITEMAP_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/sitemap.xml"
+CONVERT_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/convert.html"
