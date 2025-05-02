@@ -7,29 +7,63 @@ workers_dev = true
 
 routes = [
   { pattern = "vpn.stupidworld.web.id", custom_domain = true },
-  { pattern = "ava.game.naver.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "df.game.naver.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "graph.instagram.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "zaintest.vuclip.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "support.zoom.us.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "cache.netflix.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "bakrie.ac.id.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "quiz.int.vidio.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "quiz.vidio.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "investor.fb.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "img.email2.vidio.com.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "app.gopay.co.id.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "www.uii.ac.id.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "untar.ac.id.www.stupidworld.web.id", custom_domain = true },
-  { pattern = "graph.instagram.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "ava.game.naver.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "df.game.naver.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "graph.instagram.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "zaintest.vuclip.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "support.zoom.us.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "cache.netflix.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "bakrie.ac.id.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "quiz.int.vidio.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "quiz.vidio.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "investor.fb.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "img.email2.vidio.com.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "app.gopay.co.id.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "www.uii.ac.id.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "untar.ac.id.vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "graph.instagram.com.vpn.stupidworld.web.id", custom_domain = true },
+
+  { pattern = "vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "ava.game.naver.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "df.game.naver.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "graph.instagram.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "zaintest.vuclip.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "support.zoom.us.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "cache.netflix.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "bakrie.ac.id.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "quiz.int.vidio.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "quiz.vidio.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "investor.fb.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "img.email2.vidio.com.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "app.gopay.co.id.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "www.uii.ac.id.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "untar.ac.id.vpn.luckystup-id.xyz", custom_domain = true },
+  { pattern = "graph.instagram.com.vpn.luckystup-id.xyz", custom_domain = true },
+  
+  { pattern = "world.stupx2.my.id", custom_domain = true },
+  { pattern = "ava.game.naver.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "df.game.naver.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "graph.instagram.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "zaintest.vuclip.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "support.zoom.us.world.stupx2.my.id", custom_domain = true },
+  { pattern = "cache.netflix.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "bakrie.ac.id.world.stupx2.my.id", custom_domain = true },
+  { pattern = "quiz.int.vidio.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "quiz.vidio.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "investor.fb.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "img.email2.vidio.com.world.stupx2.my.id", custom_domain = true },
+  { pattern = "app.gopay.co.id.world.stupx2.my.id", custom_domain = true },
+  { pattern = "www.uii.ac.id.world.stupx2.my.id", custom_domain = true },
+  { pattern = "untar.ac.id.world.stupx2.my.id", custom_domain = true },
+  { pattern = "graph.instagram.com.world.stupx2.my.id", custom_domain = true },
 ]
 
 [[kv_namespaces]]
-binding = "SIREN2"
+binding = "SIREN"
 id = "387eff0217a64551a18d0703bd7c3fe2"
 
 [[kv_namespaces]]
-binding = "SITEMAP2"
+binding = "SITEMAP"
 id = "344cc4d70c20479fbe319f77d5b876e7"
 
 [build]
