@@ -26,7 +26,7 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
     let sub_page_url = env.var("SUB_PAGE_URL").map(|x|x.to_string()).unwrap();
     let link_page_url = env.var("LINK_PAGE_URL").map(|x|x.to_string()).unwrap();
     let sitemap_url = env.var("SITEMAP_URL").map(|x|x.to_string()).unwrap();
-    let convert_page_url = env.var("SITEMAP_PAGE_URL").map(|x|x.to_string()).unwrap();
+    let convert_page_url = env.var("CONVERT_PAGE_URL").map(|x|x.to_string()).unwrap();
     let config = Config { 
         uuid, 
         host: host.clone(), 
@@ -35,7 +35,7 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
         main_page_url, 
         sub_page_url,
         link_page_url,
-        convert_page_url
+        convert_page_url,
         sitemap_url
     };
 
