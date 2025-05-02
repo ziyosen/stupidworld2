@@ -67,7 +67,7 @@ async fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
 }
 
 async fn sitemap(_: Request, cx: RouteContext<Config>) -> Result<Response> {
-    let kv = cx.kv("SITEMAP2")?;
+    let kv = cx.kv("SITEMAP")?;
     let github_sitemap_url = "https://raw.githubusercontent.com/stpdwrld/Stupid-World/refs/heads/master/web/sitemap.xml";
     if let Some(cached) = kv.get("sitemap_content").text().await? {
         let mut headers = Headers::new();
@@ -99,7 +99,7 @@ async fn tunnel(req: Request, mut cx: RouteContext<Config>) -> Result<Response> 
     let mut proxyip = cx.param("proxyip").unwrap().to_string();
     if PROXYKV_PATTERN.is_match(&proxyip)  {
         let kvid_list: Vec<String> = proxyip.split(",").map(|s|s.to_string()).collect();
-        let kv = cx.kv("SIREN2")?;
+        let kv = cx.kv("SIREN")?;
         let mut proxy_kv_str = kv.get("proxy_kv").text().await?.unwrap_or("".to_string());
         let mut rand_buf = [0u8, 1];
         getrandom::getrandom(&mut rand_buf).expect("failed generating random number");
