@@ -2,18 +2,44 @@ name = "siren"
 main = "build/worker/shim.mjs"
 compatibility_date = "2024-05-23"
 minify = true
+workers_dev = true
+
+
+routes = [
+  { pattern = "vpn.stupidworld.web.id", custom_domain = true },
+  { pattern = "ava.game.naver.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "df.game.naver.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "graph.instagram.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "zaintest.vuclip.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "support.zoom.us.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "cache.netflix.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "bakrie.ac.id.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "quiz.int.vidio.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "quiz.vidio.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "investor.fb.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "img.email2.vidio.com.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "app.gopay.co.id.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "www.uii.ac.id.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "untar.ac.id.www.stupidworld.web.id", custom_domain = true },
+  { pattern = "graph.instagram.com.www.stupidworld.web.id", custom_domain = true },
 
 [[kv_namespaces]]
-binding = "SIREN"
-id = "216a79ea5462492da7aa737cc8d7a2af"
+binding = "SIREN2"
+id = "387eff0217a64551a18d0703bd7c3fe2"
+
+[[kv_namespaces]]
+binding = "SITEMAP2"
+id = "344cc4d70c20479fbe319f77d5b876e7"
 
 [build]
-command = "cargo install worker-build && worker-build --release"
+command = "cargo install -q worker-build && worker-build --release"
 
 [env.dev]
-build = { command = "cargo install worker-build && worker-build --dev" }
+build = { command = "cargo install -q worker-build && worker-build --dev" }
 
 [vars]
-UUID = "f282b878-8711-45a1-8c69-5564172123c1"
-MAIN_PAGE_URL = "https://raw.githubusercontent.com/FoolVPN-ID/Siren/refs/heads/master/web/index.html"
-SUB_PAGE_URL = "https://raw.githubusercontent.com/FoolVPN-ID/Siren/refs/heads/master/web/sub.html"
+UUID = "bef63218-3a18-4f59-acac-28622247e22c"
+MAIN_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/master/web/index.html"
+SUB_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/master/web/sub.html"
+LINK_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/master/web/link.html"
+SITEMAP_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/master/web/sitemap.xml"
