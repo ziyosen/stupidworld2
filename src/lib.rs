@@ -35,16 +35,16 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
         main_page_url, 
         sub_page_url,
         link_page_url,
-        sitemap_url,
         convert_page_url
+        sitemap_url
     };
 
     Router::with_data(config)
         .on_async("/", fe)
         .on_async("/sub", sub)
         .on_async("/link", link)
-        .on_async("/sitemap.xml", sitemap)
         .on_async("/convert", convert)
+        .on_async("/sitemap.xml", sitemap)
         .on_async("/:proxyip", tunnel)
         .on_async("/Stupid-World/:proxyip", tunnel)
         .run(req, env)
