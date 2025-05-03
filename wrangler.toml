@@ -74,8 +74,8 @@ build = { command = "cargo install -q worker-build && worker-build --dev" }
 
 [vars]
 UUID = "bef63218-3a18-4f59-acac-28622247e22c"
-MAIN_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/index.html"
-SUB_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/sub.html"
-LINK_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/link.html"
-CONVERT_PAGE_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/convert.html"
-SITEMAP_URL = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/sitemap.xml"
+MAIN_PAGE_URL = "https://raw.githubusercontent.com/xyzsds/tx/refs/heads/main/index.html"
+SUB_PAGE_URL = "https://raw.githubusercontent.com/xyzsds/tx/refs/heads/main/sub.html"
+LINK_PAGE_URL = "https://raw.githubusercontent.com/xyzsds/tx/refs/heads/main/link.html"
+CONVERT_PAGE_URL = "https://raw.githubusercontent.com/xyzsds/tx/refs/heads/main/convert.html"
+SITEMAP_URL = "https://raw.githubusercontent.com/xyzsds/tx/refs/heads//main/sitemap.xml"
