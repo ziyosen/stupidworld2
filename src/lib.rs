@@ -75,7 +75,7 @@ async fn convert(_: Request, cx: RouteContext<Config>) -> Result<Response> {
 
 async fn sitemap(_: Request, cx: RouteContext<Config>) -> Result<Response> {
     let kv = cx.kv("SITEMAP")?;
-    let github_sitemap_url = "https://raw.githubusercontent.com/stpdwrld/stupidworld2/refs/heads/main/web/sitemap.xml";
+    let github_sitemap_url = "https://raw.githubusercontent.com/xyzsds/tx/refs/heads/main/sitemap.xml";
     if let Some(cached) = kv.get("sitemap_content").text().await? {
         let mut headers = Headers::new();
         headers.set("Content-Type", "application/xml")?;
