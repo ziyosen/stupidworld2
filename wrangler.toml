@@ -22,7 +22,8 @@ routes = [
   { pattern = "www.uii.ac.id.vpn.stupidworld.web.id", custom_domain = true },
   { pattern = "untar.ac.id.vpn.stupidworld.web.id", custom_domain = true },
   { pattern = "graph.instagram.com.vpn.stupidworld.web.id", custom_domain = true },
-
+  
+  { pattern = "vpn.luckystup-id.xyz", custom_domain = true },
   { pattern = "ava.game.naver.com.vpn.luckystup-id.xyz", custom_domain = true },
   { pattern = "df.game.naver.com.vpn.luckystup-id.xyz", custom_domain = true },
   { pattern = "graph.instagram.com.vpn.luckystup-id.xyz", custom_domain = true },
