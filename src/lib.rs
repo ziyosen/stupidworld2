@@ -44,7 +44,7 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
         .on_async("/link", link)
         .on_async("/convert", converter)
         .on_async("/:proxyip", tunnel)
-        .on_async("/Inconigto-Mode/:proxyip", tunnel)
+        .on_async("/Stupid-World/:proxyip", tunnel)
         .run(req, env)
         .await
 }
