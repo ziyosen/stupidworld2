@@ -72,35 +72,43 @@ async fn converter(_: Request, cx: RouteContext<Config>) -> Result<Response> {
 }
 
 async fn tunnel(req: Request, mut cx: RouteContext<Config>) -> Result<Response> {
+    // Ambil parameter proxyip dari URL
     let mut proxyip = cx.param("proxyip").unwrap().to_string();
-    if PROXYKV_PATTERN.is_match(&proxyip)  {
+
+    // Jika proxyip sesuai dengan pola KV, lakukan pemrosesan khusus
+    if PROXYKV_PATTERN.is_match(&proxyip) {
         let kvid_list: Vec<String> = proxyip.split(",").map(|s| s.to_string()).collect();
         let kv = cx.kv("SIREN")?;
         let mut proxy_kv_str = kv.get("proxy_kv").text().await?.unwrap_or("".to_string());
         let mut rand_buf = [0u8, 1];
         getrandom::getrandom(&mut rand_buf).expect("failed generating random number");
 
+        // Jika data proxy_kv tidak ada dalam cache, ambil dari sumber eksternal
         if proxy_kv_str.len() == 0 {
             console_log!("getting proxy kv from github...");
             let req = Fetch::Url(Url::parse("https://raw.githubusercontent.com/FoolVPN-ID/Nautica/refs/heads/main/kvProxyList.json")?);
             let mut res = req.send().await?;
             if res.status_code() == 200 {
                 proxy_kv_str = res.text().await?.to_string();
-                kv.put("proxy_kv", &proxy_kv_str)?.expiration_ttl(60 * 60 * 24).execute().await?; // 24 hours
+                kv.put("proxy_kv", &proxy_kv_str)?.expiration_ttl(60 * 60 * 24).execute().await?; // Cache selama 24 jam
             } else {
                 return Err(Error::from(format!("error getting proxy kv: {}", res.status_code())));
             }
         }
 
+        // Parsing data proxy_kv dari JSON
         let proxy_kv: HashMap<String, Vec<String>> = serde_json::from_str(&proxy_kv_str)?;
 
+        // Pilih proxy secara acak berdasarkan data yang ada
         let kv_index = (rand_buf[0] as usize) % kvid_list.len();
         proxyip = kvid_list[kv_index].clone();
 
+        // Pilih alamat proxy yang sesuai
         let proxyip_index = (rand_buf[0] as usize) % proxy_kv[&proxyip].len();
         proxyip = proxy_kv[&proxyip][proxyip_index].clone().replace(":", "-");
     }
 
+    // Jika proxyip sesuai dengan pola, set alamat dan port proxy
     if PROXYIP_PATTERN.is_match(&proxyip) {
         if let Some((addr, port_str)) = proxyip.split_once('-') {
             if let Ok(port) = port_str.parse() {
@@ -110,20 +118,25 @@ async fn tunnel(req: Request, mut cx: RouteContext<Config>) -> Result<Response> 
         }
     }
 
+    // Periksa apakah permintaan ini adalah WebSocket
     let upgrade = req.headers().get("Upgrade")?.unwrap_or("".to_string());
     if upgrade == "websocket".to_string() {
+        // Jika WebSocket, buat WebSocket server dan terima koneksi
         let WebSocketPair { server, client } = WebSocketPair::new()?;
         server.accept()?;
 
         wasm_bindgen_futures::spawn_local(async move {
             let events = server.events().unwrap();
+            // Proses stream proxy dengan ProxyStream
             if let Err(e) = ProxyStream::new(cx.data, &server, events).process().await {
                 console_log!("[tunnel]: {}", e);
             }
         });
 
+        // Kembalikan WebSocket response
         Response::from_websocket(client)
     } else {
+        // Jika bukan WebSocket, kembalikan response HTML biasa
         Response::from_html("hi from wasm!")
     }
 }
