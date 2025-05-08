@@ -62,10 +62,6 @@ routes = [
 binding = "SIREN"
 id = "387eff0217a64551a18d0703bd7c3fe2"
 
-[[kv_namespaces]]
-binding = "SITEMAP"
-id = "344cc4d70c20479fbe319f77d5b876e7"
-
 [build]
 command = "cargo install -q worker-build && worker-build --release"
 
