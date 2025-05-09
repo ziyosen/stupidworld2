@@ -1,32 +1,60 @@
 use sha2::{Digest, Sha256};
 
+trait Hasher {
+    fn clone(&self) -> Box<dyn Hasher>;
+    fn update(&mut self, data: &[u8]);
+    fn finalize(&mut self) -> [u8; 32];
+}
+
+struct Sha256Hash(Sha256);
+
+impl Sha256Hash {
+    fn new() -> Self {
+        Self(Sha256::new())
+    }
+}
+
+impl Hasher for Sha256Hash {
+    fn clone(&self) -> Box<dyn Hasher> {
+        Box::new(Self(self.0.clone()))
+    }
+
+    fn update(&mut self, data: &[u8]) {
+        self.0.update(data);
+    }
+
+    fn finalize(&mut self) -> [u8; 32] {
+        self.0.clone().finalize().into()
+    }
+}
+
 struct RecursiveHash {
-    inner: Sha256,
-    outer: Sha256,
+    inner: Box<dyn Hasher>,
+    outer: Box<dyn Hasher>,
     ipad: [u8; 64],
     opad: [u8; 64],
 }
 
 impl RecursiveHash {
-    fn new(key: &[u8]) -> Self {
+    fn new(key: &[u8], hash: Box<dyn Hasher>) -> Self {
         let mut ipad = [0u8; 64];
         let mut opad = [0u8; 64];
 
-        ipad[..key.len()].copy_from_slice(key);
-        opad[..key.len()].copy_from_slice(key);
+        ipad[..key.len()].copy_from_slice(&key);
+        opad[..key.len()].copy_from_slice(&key);
 
-        for b in &mut ipad {
+        for b in ipad.iter_mut() {
             *b ^= 0x36;
         }
 
-        for b in &mut opad {
+        for b in opad.iter_mut() {
             *b ^= 0x5c;
         }
 
-        let mut inner = Sha256::new();
-        inner.update(&ipad);
-        let outer = Sha256::new();
+        let mut inner = hash.clone();
+        let outer = hash;
 
+        inner.update(&ipad);
         Self {
             inner,
             outer,
@@ -34,29 +62,43 @@ impl RecursiveHash {
             opad,
         }
     }
+}
+
+impl Hasher for RecursiveHash {
+    fn clone(&self) -> Box<dyn Hasher> {
+        let inner = self.inner.clone();
+        let outer = self.outer.clone();
+        let ipad = self.ipad.clone();
+        let opad = self.opad.clone();
+
+        Box::new(Self {
+            inner,
+            outer,
+            ipad,
+            opad,
+        })
+    }
 
     fn update(&mut self, data: &[u8]) {
         self.inner.update(data);
     }
 
-    fn finalize(mut self) -> [u8; 32] {
-        let inner_result = self.inner.finalize();
-        let mut outer = Sha256::new();
-        outer.update(&self.opad);
-        outer.update(&inner_result);
-        outer.finalize().into()
+    fn finalize(&mut self) -> [u8; 32] {
+        let result: [u8; 32] = self.inner.finalize().into();
+        self.outer.update(&self.opad);
+        self.outer.update(&result);
+        self.outer.finalize().into()
     }
 }
 
 pub fn kdf(key: &[u8], path: &[&[u8]]) -> [u8; 32] {
-    let mut current = RecursiveHash::new(b"VMess AEAD KDF");
+    let mut current = Box::new(RecursiveHash::new(
+        b"VMess AEAD KDF",
+        Box::new(Sha256Hash::new()),
+    ));
 
-    for p in path {
-        current = {
-            let mut next = RecursiveHash::new(p);
-            next.update(&current.finalize());
-            next
-        };
+    for p in path.into_iter() {
+        current = Box::new(RecursiveHash::new(p, current));
     }
 
     current.update(key);
