@@ -1,125 +1,87 @@
-use sha2::{Digest, Sha256};
+pub mod hash;
 
-trait Hasher {
-    fn clone(&self) -> Box<dyn Hasher>;
-    fn update(&mut self, data: &[u8]);
-    fn finalize(&mut self) -> [u8; 32];
-}
+use std::net::{Ipv4Addr, Ipv6Addr};
+use tokio::io::{AsyncRead, AsyncReadExt};
+use worker::*;
 
-struct Sha256Hash(Sha256);
+pub const KDFSALT_CONST_VMESS_HEADER_PAYLOAD_LENGTH_AEAD_KEY: &[u8] =
+    b"VMess Header AEAD Key_Length";
+pub const KDFSALT_CONST_VMESS_HEADER_PAYLOAD_LENGTH_AEAD_IV: &[u8] =
+    b"VMess Header AEAD Nonce_Length";
+pub const KDFSALT_CONST_VMESS_HEADER_PAYLOAD_AEAD_KEY: &[u8] = b"VMess Header AEAD Key";
+pub const KDFSALT_CONST_VMESS_HEADER_PAYLOAD_AEAD_IV: &[u8] = b"VMess Header AEAD Nonce";
+pub const KDFSALT_CONST_AEAD_RESP_HEADER_LEN_KEY: &[u8] = b"AEAD Resp Header Len Key";
+pub const KDFSALT_CONST_AEAD_RESP_HEADER_LEN_IV: &[u8] = b"AEAD Resp Header Len IV";
+pub const KDFSALT_CONST_AEAD_RESP_HEADER_KEY: &[u8] = b"AEAD Resp Header Key";
+pub const KDFSALT_CONST_AEAD_RESP_HEADER_IV: &[u8] = b"AEAD Resp Header IV";
 
-impl Sha256Hash {
-    fn new() -> Self {
-        Self(Sha256::new())
-    }
-}
-
-impl Hasher for Sha256Hash {
-    fn clone(&self) -> Box<dyn Hasher> {
-        Box::new(Self(self.0.clone()))
-    }
-
-    fn update(&mut self, data: &[u8]) {
-        self.0.update(data);
-    }
-
-    fn finalize(&mut self) -> [u8; 32] {
-        self.0.clone().finalize().into()
-    }
-}
-
-struct RecursiveHash {
-    inner: Box<dyn Hasher>,
-    outer: Box<dyn Hasher>,
-    ipad: [u8; 64],
-    opad: [u8; 64],
-}
-
-impl RecursiveHash {
-    fn new(key: &[u8], hash: Box<dyn Hasher>) -> Self {
-        let mut ipad = [0u8; 64];
-        let mut opad = [0u8; 64];
-
-        ipad[..key.len()].copy_from_slice(&key);
-        opad[..key.len()].copy_from_slice(&key);
-
-        for b in ipad.iter_mut() {
-            *b ^= 0x36;
-        }
-
-        for b in opad.iter_mut() {
-            *b ^= 0x5c;
-        }
-
-        let mut inner = hash.clone();
-        let outer = hash;
-
-        inner.update(&ipad);
-        Self {
-            inner,
-            outer,
-            ipad,
-            opad,
+#[macro_export]
+macro_rules! md5 {
+    ( $($v:expr),+ ) => {
+        {
+            let mut hash = Md5::new();
+            $(
+                hash.update($v);
+            )*
+            hash.finalize()
         }
     }
 }
 
-impl Hasher for RecursiveHash {
-    fn clone(&self) -> Box<dyn Hasher> {
-        let inner = self.inner.clone();
-        let outer = self.outer.clone();
-        let ipad = self.ipad.clone();
-        let opad = self.opad.clone();
-
-        Box::new(Self {
-            inner,
-            outer,
-            ipad,
-            opad,
-        })
-    }
-
-    fn update(&mut self, data: &[u8]) {
-        self.inner.update(data);
-    }
-
-    fn finalize(&mut self) -> [u8; 32] {
-        let result: [u8; 32] = self.inner.finalize().into();
-        self.outer.update(&self.opad);
-        self.outer.update(&result);
-        self.outer.finalize().into()
+#[macro_export]
+macro_rules! sha256 {
+    ( $($v:expr),+ ) => {
+        {
+            let mut hash = Sha256::new();
+            $(
+                hash.update($v);
+            )*
+            hash.finalize()
+        }
     }
 }
 
-pub fn kdf(key: &[u8], path: &[&[u8]]) -> [u8; 32] {
-    let mut current = Box::new(RecursiveHash::new(
-        b"VMess AEAD KDF",
-        Box::new(Sha256Hash::new()),
-    ));
+pub async fn parse_addr<R: AsyncRead + std::marker::Unpin>(buf: &mut R) -> Result<String> {
+    // combined addr type between Vmess, VLESS, and Trojan.
+    // VLESS wouldn't connect to ipv6 address due to mismatch addr type
+    let addr = match buf.read_u8().await? {
+        1 => {
+            let mut addr = [0u8; 4];
+            buf.read_exact(&mut addr).await?;
+            Ipv4Addr::new(addr[0], addr[1], addr[2], addr[3]).to_string()
+        }
+        2 | 3 => {
+            let len = buf.read_u8().await?;
+            let mut domain = vec![0u8; len as _];
+            buf.read_exact(&mut domain).await?;
+            String::from_utf8_lossy(&domain).to_string()
+        }
+        4 => {
+            let mut addr = [0u8; 16];
+            buf.read_exact(&mut addr).await?;
+            Ipv6Addr::new(
+                u16::from_be_bytes([addr[0], addr[1]]),
+                u16::from_be_bytes([addr[2], addr[3]]),
+                u16::from_be_bytes([addr[4], addr[5]]),
+                u16::from_be_bytes([addr[6], addr[7]]),
+                u16::from_be_bytes([addr[8], addr[9]]),
+                u16::from_be_bytes([addr[10], addr[11]]),
+                u16::from_be_bytes([addr[12], addr[13]]),
+                u16::from_be_bytes([addr[14], addr[15]]),
+            )
+            .to_string()
+        }
+        _ => {
+            return Err(Error::RustError("invalid address".to_string()));
+        }
+    };
 
-    for p in path.into_iter() {
-        current = Box::new(RecursiveHash::new(p, current));
-    }
-
-    current.update(key);
-    current.finalize()
+    Ok(addr)
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use md5::Md5;
+pub async fn parse_port<R: AsyncRead + std::marker::Unpin>(buf: &mut R) -> Result<u16> {
+    let mut port = [0u8; 2];
+    buf.read_exact(&mut port).await?;
 
-    #[test]
-    fn test_kdf() {
-        let uuid = uuid::uuid!("96850032-1b92-46e9-a4f2-b99631456894").as_bytes();
-        let key = crate::md5!(&uuid, b"c48619fe-8f02-49e0-b9e9-edf763e17e21");
-
-        let res = kdf(&key, &[b"AES Auth ID Encryption"]);
-
-        assert_eq!(
-            res[..16],
-            [117, 82, 144, 159, 147, 65, 74, 253, 91, 74, 70, 84, 114, 118, 203, 30]
-        );
-    }
+    Ok(u16::from_be_bytes([port[0], port[1]]))
 }
