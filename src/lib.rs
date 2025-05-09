@@ -68,7 +68,7 @@ async fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
 }
 
 async fn convert(_: Request, cx: RouteContext<Config>) -> Result<Response> {
-    get_response_from_url(cx.data.converter_page_url).await
+    get_response_from_url(cx.data.convert_page_url).await
 }
 
 async fn tunnel(req: Request, mut cx: RouteContext<Config>) -> Result<Response> {
