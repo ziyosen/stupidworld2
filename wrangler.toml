@@ -21,7 +21,6 @@ routes = [
   { pattern = "app.gopay.co.id.vpn.stupidworld.web.id", custom_domain = true },
   { pattern = "www.uii.ac.id.vpn.stupidworld.web.id", custom_domain = true },
   { pattern = "untar.ac.id.vpn.stupidworld.web.id", custom_domain = true },
-  { pattern = "graph.instagram.com.vpn.stupidworld.web.id", custom_domain = true },
 ]
 
 [[kv_namespaces]]
