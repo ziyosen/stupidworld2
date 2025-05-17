@@ -20,9 +20,7 @@ routes = [
   { pattern = "img.email2.vidio.com.vpn.stupidworld.web.id", custom_domain = true },
   { pattern = "app.gopay.co.id.vpn.stupidworld.web.id", custom_domain = true },
   { pattern = "www.uii.ac.id.vpn.stupidworld.web.id", custom_domain = true },
-  { pattern = "untar.ac.id.vpn.stupidworld.web.id", custom_domain = true },
-  { pattern = "cdn.youtube.com.vpn.stupidworld.web.id", custom_domain = true },
-  
+  { pattern = "untar.ac.id.vpn.stupidworld.web.id", custom_domain = true },  
   { pattern = "vpn.luckystup-id.xyz", custom_domain = true },
   { pattern = "ava.game.naver.com.vpn.luckystup-id.xyz", custom_domain = true },
   { pattern = "df.game.naver.com.vpn.luckystup-id.xyz", custom_domain = true },
@@ -38,7 +36,6 @@ routes = [
   { pattern = "app.gopay.co.id.vpn.luckystup-id.xyz", custom_domain = true },
   { pattern = "www.uii.ac.id.vpn.luckystup-id.xyz", custom_domain = true },
   { pattern = "untar.ac.id.vpn.luckystup-id.xyz", custom_domain = true },
-  { pattern = "cdn.youtube.com.vpn.luckystup-id.xyz", custom_domain = true },
 ]
 
 [[kv_namespaces]]
