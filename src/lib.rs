@@ -46,8 +46,8 @@ async fn fe(_: Request, cx: RouteContext<Config>) -> Result<Response> {
     get_response_from_url(cx.data.main_page_url).await
 }
 
-async fn sub(_: Request, cx: RouteContext<Config>) -> Result<Response> {
-    get_response_from_url(cx.data.sub_page_url).await
+async fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
+    get_response_from_url(cx.data.link_page_url).await
 }
 
 
