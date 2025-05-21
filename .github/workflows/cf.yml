@@ -1,35 +1,22 @@
-name: Deploy to Cloudflare Workers
+name: cf workers
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - master
     paths-ignore:
       - 'README.md'
       - 'LICENSE.md'
-  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    environment: cf
     steps:
-      # Checkout repo (akses wrangler.toml, dll)
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      # Optional: log file for debugging
-      - name: Show wrangler.toml contents
-        run: cat wrangler.toml
-
-      # Menambahkan langkah menggunakan GITHUB_TOKEN untuk akses API GitHub
-      - name: Get repository info using GitHub API
-        run: |
-          curl -H "Authorization: Bearer ${{ secrets.S2P1D_TOKEN }}" \
-               https://api.github.com/repos/${{ github.repository }}
-      
-      # Deploy ke Cloudflare Workers
-      - name: Deploy to Cloudflare
+      - uses: actions/checkout@v4
+      - name: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
