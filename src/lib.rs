@@ -23,16 +23,12 @@ async fn main(req: Request, env: Env, _: Context) -> Result<Response> {
         .map(|x| Uuid::parse_str(&x.to_string()).unwrap_or_default())?;
     let host = req.url()?.host().map(|x| x.to_string()).unwrap_or_default();
     let main_page_url = env.var("MAIN_PAGE_URL").map(|x|x.to_string()).unwrap();
-    let sub_page_url = env.var("SUB_PAGE_URL").map(|x|x.to_string()).unwrap();
     let link_page_url = env.var("LINK_PAGE_URL").map(|x|x.to_string()).unwrap();
-    let convert_page_url = env.var("CONVERT_PAGE_URL").map(|x|x.to_string()).unwrap();
     let config = Config { uuid, host: host.clone(), proxy_addr: host, proxy_port: 443, main_page_url, sub_page_url, link_page_url, convert_page_url };
 
     Router::with_data(config)
         .on_async("/", fe)
-        .on_async("/sub", sub)
         .on_async("/link", link)
-        .on_async("/convert", convert)
         .on_async("/:proxyip", tunnel)
         .on_async("/Stupid-World/:proxyip", tunnel)
         .run(req, env)
@@ -49,16 +45,8 @@ async fn fe(_: Request, cx: RouteContext<Config>) -> Result<Response> {
     get_response_from_url(cx.data.main_page_url).await
 }
 
-async fn sub(_: Request, cx: RouteContext<Config>) -> Result<Response> {
-    get_response_from_url(cx.data.sub_page_url).await
-}
-
 async fn link(_: Request, cx: RouteContext<Config>) -> Result<Response> {
     get_response_from_url(cx.data.link_page_url).await
-}
-
-async fn convert(_: Request, cx: RouteContext<Config>) -> Result<Response> {
-    get_response_from_url(cx.data.convert_page_url).await
 }
 
 async fn tunnel(req: Request, mut cx: RouteContext<Config>) -> Result<Response> {
